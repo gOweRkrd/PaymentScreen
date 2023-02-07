@@ -23,20 +23,33 @@ final class PaymentView: UIView {
     lazy var subTitleLabel: UILabel = {
         
         let label = UILabel()
-        label.text = "Выберите удобный способ оплаты"
+        label.text = "Выберите удобный для вас способ \n оплаты"
+        label.textAlignment = .center
         label.numberOfLines = 2
+        label.textColor = UIColor.lightGray
         label.font = UIFont(name: ".SFPro-Display", size: 18 )
         label.font = .systemFont(ofSize: 18, weight: .regular)
         return label
     }()
     
     lazy var subscribeButton: UIButton = {
+        
         let button = UIButton()
         button.setTitle("Оформить подписку", for: .normal)
         button.backgroundColor = .black
         button.layer.masksToBounds = true
         button.layer.cornerRadius = 25
         return button
+    }()
+    
+    lazy var byLabel: UILabel = {
+        
+        let label = UILabel()
+        label.text = "Восстановить покупки"
+        label.font = UIFont(name: ".SFPro-Display", size: 16 )
+        label.textColor = UIColor.lightGray
+        label.font = .systemFont(ofSize: 18, weight: .regular)
+        return label
     }()
     
     // MARK: - Lifecycle
@@ -66,11 +79,13 @@ extension PaymentView {
         addSubview(subTitleLabel)
         addSubview(tableView)
         addSubview(subscribeButton)
-
+        addSubview(byLabel)
+        
         mainTitleLabel.translatesAutoresizingMaskIntoConstraints = false
         subTitleLabel.translatesAutoresizingMaskIntoConstraints = false
         tableView.translatesAutoresizingMaskIntoConstraints = false
         subscribeButton.translatesAutoresizingMaskIntoConstraints = false
+        byLabel.translatesAutoresizingMaskIntoConstraints = false
     }
     
     func setupConstraints() {
@@ -87,12 +102,16 @@ extension PaymentView {
             tableView.topAnchor.constraint(equalTo: subTitleLabel.bottomAnchor, constant:48),
             tableView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
             tableView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-            tableView.heightAnchor.constraint(equalTo: self.heightAnchor,constant: -500),
+            tableView.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.42),
             
             subscribeButton.topAnchor.constraint(equalTo: tableView.bottomAnchor, constant:98),
             subscribeButton.leadingAnchor.constraint(equalTo: self.leadingAnchor,constant: 16),
             subscribeButton.trailingAnchor.constraint(equalTo: self.trailingAnchor,constant: -16),
             subscribeButton.heightAnchor.constraint(equalToConstant: 50),
+            
+            byLabel.topAnchor.constraint(equalTo: subscribeButton.bottomAnchor, constant:25),
+            byLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor)
+  
         ])
     }
 }

@@ -29,8 +29,9 @@ final class PaymentController: UIViewController {
 // MARK: - TableViewDataSource
 
 extension PaymentController: UITableViewDataSource {
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        3
+        return itemsModel.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -39,11 +40,10 @@ extension PaymentController: UITableViewDataSource {
             fatalError("Creating cell from HotelsListViewController failed")
         }
         
-        cell.textLabel?.text = "Hello"
+        cell.data = itemsModel[indexPath.item]
     
         return cell
     }
-    
 }
 
 // MARK: - TableViewDelegate
