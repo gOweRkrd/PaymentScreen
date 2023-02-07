@@ -7,6 +7,7 @@ final class PaymentView: UIView {
     lazy var tableView: UITableView = {
         
         let tableView = UITableView()
+        tableView.separatorColor = .clear
         return tableView
     }()
     
@@ -29,6 +30,15 @@ final class PaymentView: UIView {
         return label
     }()
     
+    lazy var subscribeButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("Оформить подписку", for: .normal)
+        button.backgroundColor = .black
+        button.layer.masksToBounds = true
+        button.layer.cornerRadius = 25
+        return button
+    }()
+    
     // MARK: - Lifecycle
     
     override init(frame: CGRect) {
@@ -39,6 +49,7 @@ final class PaymentView: UIView {
         setupConstraints()
         
         tableView.register(PaymentTableViewCell.self, forCellReuseIdentifier: "cell")
+        
     }
     
     required init?(coder: NSCoder) {
@@ -54,10 +65,12 @@ extension PaymentView {
         addSubview(mainTitleLabel)
         addSubview(subTitleLabel)
         addSubview(tableView)
-        
+        addSubview(subscribeButton)
+
         mainTitleLabel.translatesAutoresizingMaskIntoConstraints = false
         subTitleLabel.translatesAutoresizingMaskIntoConstraints = false
         tableView.translatesAutoresizingMaskIntoConstraints = false
+        subscribeButton.translatesAutoresizingMaskIntoConstraints = false
     }
     
     func setupConstraints() {
@@ -74,7 +87,12 @@ extension PaymentView {
             tableView.topAnchor.constraint(equalTo: subTitleLabel.bottomAnchor, constant:48),
             tableView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
             tableView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: self.bottomAnchor)
+            tableView.heightAnchor.constraint(equalTo: self.heightAnchor,constant: -500),
+            
+            subscribeButton.topAnchor.constraint(equalTo: tableView.bottomAnchor, constant:98),
+            subscribeButton.leadingAnchor.constraint(equalTo: self.leadingAnchor,constant: 16),
+            subscribeButton.trailingAnchor.constraint(equalTo: self.trailingAnchor,constant: -16),
+            subscribeButton.heightAnchor.constraint(equalToConstant: 50),
         ])
     }
 }
