@@ -73,9 +73,6 @@ cyclomatic_complexity:
   warning: 10
   error: 40
 
-force_cast:
-  warning
-
 control_statement:
   error
 

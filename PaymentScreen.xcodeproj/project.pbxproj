@@ -21,7 +21,6 @@
 		50A07E9D299372DB00EEE33A /* SFProDisplay-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 50A07E8C2992C09200EEE33A /* SFProDisplay-Bold.ttf */; };
 		50A07E9E299372E000EEE33A /* SFProDisplayRegular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 50A07E902992C2C100EEE33A /* SFProDisplayRegular.ttf */; };
 		50A07EA0299373A600EEE33A /* SF-Pro-Display-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 50A07E9F2993738100EEE33A /* SF-Pro-Display-Black.ttf */; };
-		50A07EA329937B8100EEE33A /* ReuseIdentifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50A07EA229937B8100EEE33A /* ReuseIdentifiable.swift */; };
 		50A07EA52993877700EEE33A /* SF-Pro-Display-Heavy.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 50A07EA42993876E00EEE33A /* SF-Pro-Display-Heavy.ttf */; };
 		50A07EA72993883F00EEE33A /* SF-Pro-Display-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 50A07EA62993880200EEE33A /* SF-Pro-Display-Semibold.ttf */; };
 		50A07EAB2993898D00EEE33A /* UIView+AddSubviews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50A07EAA2993898D00EEE33A /* UIView+AddSubviews.swift */; };
@@ -44,7 +43,6 @@
 		50A07E9929936D6200EEE33A /* Assets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Assets.swift; sourceTree = "<group>"; };
 		50A07E9B299370BB00EEE33A /* System.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = System.swift; sourceTree = "<group>"; };
 		50A07E9F2993738100EEE33A /* SF-Pro-Display-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Display-Black.ttf"; sourceTree = "<group>"; };
-		50A07EA229937B8100EEE33A /* ReuseIdentifiable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReuseIdentifiable.swift; sourceTree = "<group>"; };
 		50A07EA42993876E00EEE33A /* SF-Pro-Display-Heavy.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Display-Heavy.ttf"; sourceTree = "<group>"; };
 		50A07EA62993880200EEE33A /* SF-Pro-Display-Semibold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Display-Semibold.ttf"; sourceTree = "<group>"; };
 		50A07EAA2993898D00EEE33A /* UIView+AddSubviews.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+AddSubviews.swift"; sourceTree = "<group>"; };
@@ -193,7 +191,6 @@
 			children = (
 				50A07E9129933C5800EEE33A /* LoaderButton.swift */,
 				50A07EAA2993898D00EEE33A /* UIView+AddSubviews.swift */,
-				50A07EA229937B8100EEE33A /* ReuseIdentifiable.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -216,9 +213,9 @@
 			buildPhases = (
 				508DD4D029927633008F1B44 /* Sources */,
 				50A07E9529936B8F00EEE33A /* SwiftGen */,
+				50A07EA129937A6200EEE33A /* SwiftLint */,
 				508DD4D129927633008F1B44 /* Frameworks */,
 				508DD4D229927633008F1B44 /* Resources */,
-				50A07EA129937A6200EEE33A /* SwiftLint */,
 			);
 			buildRules = (
 			);
@@ -282,6 +279,7 @@
 /* Begin PBXShellScriptBuildPhase section */
 		50A07E9529936B8F00EEE33A /* SwiftGen */ = {
 			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
 			files = (
 			);
@@ -300,6 +298,7 @@
 		};
 		50A07EA129937A6200EEE33A /* SwiftLint */ = {
 			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
 			files = (
 			);
@@ -328,7 +327,6 @@
 				508DD4F3299278F0008F1B44 /* PaymentView.swift in Sources */,
 				508DD4DC29927633008F1B44 /* PaymentController.swift in Sources */,
 				508DD4D829927633008F1B44 /* AppDelegate.swift in Sources */,
-				50A07EA329937B8100EEE33A /* ReuseIdentifiable.swift in Sources */,
 				508DD4DA29927633008F1B44 /* SceneDelegate.swift in Sources */,
 				50A07E9A29936D6200EEE33A /* Assets.swift in Sources */,
 				508DD4FA29929D81008F1B44 /* DataModel.swift in Sources */,
