@@ -1,13 +1,6 @@
-//
-//  PaymentTableViewCell.swift
-//  PaymentScreen
-//
-//  Created by Александр Косяков on 07.02.2023.
-//
-
 import UIKit
 
-final class PaymentTableViewCell: UITableViewCell {
+final class PaymentCollectionViewCell: UICollectionViewCell {
     
     var data: DataModel? {
         didSet {
@@ -18,7 +11,6 @@ final class PaymentTableViewCell: UITableViewCell {
         }
     }
 
-    
     // MARK: - UI Elements
     
     private var monthsLabel: UILabel = {
@@ -46,14 +38,24 @@ final class PaymentTableViewCell: UITableViewCell {
         return label
     }()
     
+    private var checkmark: UIImageView = {
+        let image = UIImage(named: "Path")
+        let imageView = UIImageView(image: image)
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.alpha = 0
+        return imageView
+    }()
+    
     // MARK: - Initialization
     
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
+    override init(frame: CGRect) {
+        super.init(frame: .zero)
         
         castomizeCell()
         addSubView()
         setupConstraints()
+        showMark()
+        hideMark()
     }
     
     required init?(coder: NSCoder) {
@@ -63,8 +65,11 @@ final class PaymentTableViewCell: UITableViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 0, left: 17, bottom: 16, right: 17))
+        contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 0, left: 17, bottom: 0, right: 17))
     }
+    
+    
+    // MARK: - Private Methods
     
     private func castomizeCell () {
         
@@ -73,20 +78,33 @@ final class PaymentTableViewCell: UITableViewCell {
         contentView.clipsToBounds = true
         contentView.backgroundColor = UIColor(red: 236 / 255, green: 240 / 255, blue: 243 / 255, alpha: 1)
     }
+    
+     func showMark() {
+         setupSelected()
+        checkmark.isHidden = false
+        contentView.backgroundColor = UIColor(red: 37 / 255, green: 217 / 255, blue: 119 / 255, alpha: 1)
+    }
+    
+     func hideMark() {
+        checkmark.isHidden = true
+        contentView.backgroundColor = UIColor(red: 236 / 255, green: 240 / 255, blue: 243 / 255, alpha: 1)
+    }
 }
 
 // MARK: - Setup Constrains
 
-private extension PaymentTableViewCell {
+private extension PaymentCollectionViewCell {
     
     func addSubView() {
         contentView.addSubview(monthsLabel)
+        contentView.addSubview(checkmark)
         contentView.addSubview(priceLabel)
         contentView.addSubview(subscriptionLabel)
         
         monthsLabel.translatesAutoresizingMaskIntoConstraints = false
         priceLabel.translatesAutoresizingMaskIntoConstraints = false
         subscriptionLabel.translatesAutoresizingMaskIntoConstraints = false
+        checkmark.translatesAutoresizingMaskIntoConstraints = false
     }
     
     func setupConstraints() {
@@ -95,25 +113,38 @@ private extension PaymentTableViewCell {
             monthsLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
             monthsLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor,constant: 16),
             
+            checkmark.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 19),
+            checkmark.leadingAnchor.constraint(equalTo: contentView.leadingAnchor,constant: 16),
+            
             priceLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
             priceLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor,constant: -16),
             
             subscriptionLabel.topAnchor.constraint(equalTo: priceLabel.bottomAnchor, constant: 16),
             subscriptionLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor,constant: 16),
             subscriptionLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor,constant: -16),
-           
         ])
     }
+    
+    func setupSelected() {
+        
+        NSLayoutConstraint.activate([
+        monthsLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
+        monthsLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor,constant: 48),
+        
+        checkmark.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 19),
+        checkmark.leadingAnchor.constraint(equalTo: contentView.leadingAnchor,constant: 16),
+        ])
+    }
+    
 }
-
 // MARK: - Constant Constraints
 
-extension CGFloat {
-    static let leadingTrailingSize: CGFloat = 10
-    static let newsImageViewTrailingAnchor: CGFloat = 20
-    static let newsImageViewSizeAnchor: CGFloat = 130
-    static let subTitleLabelTopAnchor: CGFloat = 65
-}
+//extension CGFloat {
+//    static let leadingTrailingSize: CGFloat = 10
+//    static let newsImageViewTrailingAnchor: CGFloat = 20
+//    static let newsImageViewSizeAnchor: CGFloat = 130
+//    static let subTitleLabelTopAnchor: CGFloat = 65
+//}
 
 
 

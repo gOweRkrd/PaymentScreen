@@ -2,21 +2,23 @@ import UIKit
 
 final class PaymentView: UIView {
     
-    // MARK: - UI Elements
+    private let spacing:CGFloat = 16.0
     
-    lazy var tableView: UITableView = {
-        
-        let tableView = UITableView()
-        tableView.separatorColor = .clear
-        return tableView
-    }()
+    // MARK: - UI Elements
+ 
+    let collectionView: UICollectionView = {
+
+       let layout = UICollectionViewFlowLayout()
+       layout.scrollDirection = .vertical
+       let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+       return collectionView
+   }()
     
     lazy var mainTitleLabel: UILabel = {
         
         let label = UILabel()
         label.text = "Приложение платное"
-        label.font = UIFont(name: ".SFPro-Display", size: 26 )
-        label.font = .systemFont(ofSize: 26, weight: .semibold)
+        label.font = Fonts.SFProDisplay.black.font(size: 26)
         return label
     }()
     
@@ -27,14 +29,13 @@ final class PaymentView: UIView {
         label.textAlignment = .center
         label.numberOfLines = 2
         label.textColor = UIColor.lightGray
-        label.font = UIFont(name: ".SFPro-Display", size: 18 )
         label.font = .systemFont(ofSize: 18, weight: .regular)
         return label
     }()
     
-    lazy var subscribeButton: UIButton = {
+    lazy var subscribeButton: LoaderButton = {
         
-        let button = UIButton()
+        let button = LoaderButton()
         button.setTitle("Оформить подписку", for: .normal)
         button.backgroundColor = .black
         button.layer.masksToBounds = true
@@ -42,14 +43,12 @@ final class PaymentView: UIView {
         return button
     }()
     
-    lazy var byLabel: UILabel = {
+    lazy var byButton: UIButton = {
         
-        let label = UILabel()
-        label.text = "Восстановить покупки"
-        label.font = UIFont(name: ".SFPro-Display", size: 16 )
-        label.textColor = UIColor.lightGray
-        label.font = .systemFont(ofSize: 18, weight: .regular)
-        return label
+        let button = UIButton()
+        button.setTitle("Восстановить покупки", for: .normal)
+        button.setTitleColor(UIColor.gray, for: .normal)
+        return button
     }()
     
     // MARK: - Lifecycle
@@ -60,13 +59,22 @@ final class PaymentView: UIView {
         
         addSubView()
         setupConstraints()
-        
-        tableView.register(PaymentTableViewCell.self, forCellReuseIdentifier: "cell")
-        
+        setupSpacingCollectionView()
+ 
+        collectionView.register(PaymentCollectionViewCell.self, forCellWithReuseIdentifier: "cell")
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
+    }
+    
+    // MARK: - Private Methods
+    
+    private func setupSpacingCollectionView() {
+        let layout = UICollectionViewFlowLayout()
+        layout.sectionInset = UIEdgeInsets(top: spacing, left: spacing, bottom: spacing, right: spacing)
+        layout.minimumLineSpacing = spacing
+        collectionView.collectionViewLayout = layout
     }
 }
 
@@ -77,15 +85,15 @@ extension PaymentView {
     func addSubView() {
         addSubview(mainTitleLabel)
         addSubview(subTitleLabel)
-        addSubview(tableView)
+        addSubview(collectionView)
         addSubview(subscribeButton)
-        addSubview(byLabel)
+        addSubview(byButton)
         
         mainTitleLabel.translatesAutoresizingMaskIntoConstraints = false
         subTitleLabel.translatesAutoresizingMaskIntoConstraints = false
-        tableView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
         subscribeButton.translatesAutoresizingMaskIntoConstraints = false
-        byLabel.translatesAutoresizingMaskIntoConstraints = false
+        byButton.translatesAutoresizingMaskIntoConstraints = false
     }
     
     func setupConstraints() {
@@ -99,18 +107,18 @@ extension PaymentView {
             subTitleLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant:40),
             subTitleLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant:-40),
             
-            tableView.topAnchor.constraint(equalTo: subTitleLabel.bottomAnchor, constant:48),
-            tableView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
-            tableView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-            tableView.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.42),
+            collectionView.topAnchor.constraint(equalTo: subTitleLabel.bottomAnchor, constant:48),
+            collectionView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            collectionView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            collectionView.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.45),
             
-            subscribeButton.topAnchor.constraint(equalTo: tableView.bottomAnchor, constant:98),
+            subscribeButton.topAnchor.constraint(equalTo: collectionView.bottomAnchor, constant:98),
             subscribeButton.leadingAnchor.constraint(equalTo: self.leadingAnchor,constant: 16),
             subscribeButton.trailingAnchor.constraint(equalTo: self.trailingAnchor,constant: -16),
             subscribeButton.heightAnchor.constraint(equalToConstant: 50),
             
-            byLabel.topAnchor.constraint(equalTo: subscribeButton.bottomAnchor, constant:25),
-            byLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor)
+            byButton.topAnchor.constraint(equalTo: subscribeButton.bottomAnchor, constant:25),
+            byButton.centerXAnchor.constraint(equalTo: self.centerXAnchor)
   
         ])
     }

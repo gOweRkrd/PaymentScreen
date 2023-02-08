@@ -3,7 +3,7 @@ import UIKit
 final class PaymentController: UIViewController {
     
     // MARK: - Properties
-
+    
     private let paymentView = PaymentView()
     
     // MARK: - Lifecycle
@@ -12,46 +12,71 @@ final class PaymentController: UIViewController {
         super.loadView()
         self.view = paymentView
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupDelegate()
+        paymentView.subscribeButton.addTarget(self, action: #selector(subscribeTup), for: .touchUpInside)
     }
     
     // MARK: - Private Methods
     
     private func setupDelegate() {
-        paymentView.tableView.delegate = self
-        paymentView.tableView.dataSource = self
+        paymentView.collectionView.delegate = self
+        paymentView.collectionView.dataSource = self
+    }
+    
+    @objc
+    private func subscribeTup(_ sender: LoaderButton) {
+        sender.isLoading = true
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2)) {
+            sender.isLoading = false
+        }
     }
 }
 
-// MARK: - TableViewDataSource
+// MARK: - CollectionViewDataSource
 
-extension PaymentController: UITableViewDataSource {
+extension PaymentController: UICollectionViewDataSource {
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        
         return itemsModel.count
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? PaymentTableViewCell  else {
-            fatalError("Creating cell from HotelsListViewController failed")
-        }
-        
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! PaymentCollectionViewCell
         cell.data = itemsModel[indexPath.item]
-    
         return cell
     }
 }
 
-// MARK: - TableViewDelegate
+// MARK: - UICollectionViewDelegate
 
-extension PaymentController: UITableViewDelegate {
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 121
+extension PaymentController: UICollectionViewDelegate {
+
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        if let cell = collectionView.cellForItem(at: indexPath) as? PaymentCollectionViewCell {
+            cell.showMark()
+            cell.layoutIfNeeded()
+        }
+    }
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        if let cell = collectionView.cellForItem(at: indexPath) as? PaymentCollectionViewCell {
+            cell.hideMark()
+        }
     }
 }
 
+// MARK: - CollectionViewDelegateFlowLayout
+
+extension PaymentController: UICollectionViewDelegateFlowLayout {
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+        return CGSize(width: collectionView.frame.width / 1, height: collectionView.frame.width / 3.6)
+    }
+}

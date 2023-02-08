@@ -1,0 +1,17 @@
+fonts:
+  inputs:
+    - PaymentScreen/Resources/System
+  outputs:
+    templateName: swift5
+    output: PaymentScreen/Resources/Generate/System.swift
+    params:
+         enumName: Fonts
+xcassets:
+  inputs:
+    - PaymentScreen/Resources/Assets.xcassets
+  outputs:
+    - templateName: swift5
+      params:
+         enumName: Assets
+         forceProvidesNamespaces: true
+      output: PaymentScreen/Resources/Generate/Assets.swift
