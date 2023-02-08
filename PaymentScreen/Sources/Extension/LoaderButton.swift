@@ -1,21 +1,21 @@
-//import UIKit
-
 import UIKit
-// 1
-class LoaderButton: UIButton {
-    // 2
+
+final class LoaderButton: UIButton {
+
+    // MARK: - Properties
+
     var spinner = UIActivityIndicatorView()
-    // 3
+
     var isLoading = false {
         didSet {
-            // whenever `isLoading` state is changed, update the view
             updateView()
         }
     }
 
+    // MARK: - Lifecycle
+
     override init(frame: CGRect) {
         super.init(frame: frame)
-        // 4
         setupView()
     }
 
@@ -24,18 +24,15 @@ class LoaderButton: UIButton {
         setupView()
     }
 
-    func setupView() {
-        // 5
+    // MARK: - Private Methods
+
+    private func setupView() {
+
         spinner.hidesWhenStopped = true
-        // to change spinner color
         spinner.color = .white
-        // default style
         spinner.style = .medium
 
-        // 6
-        // add as button subview
         addSubview(spinner)
-        // set constraints to always in the middle of button
         spinner.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             spinner.centerXAnchor.constraint(equalTo: self.centerXAnchor),
@@ -43,13 +40,11 @@ class LoaderButton: UIButton {
         ])
     }
 
-    // 7
-    func updateView() {
+    private func updateView() {
         if isLoading {
             spinner.startAnimating()
             titleLabel?.alpha = 0
             imageView?.alpha = 0
-            // to prevent multiple click while in process
             isEnabled = false
         } else {
             spinner.stopAnimating()
@@ -59,4 +54,3 @@ class LoaderButton: UIButton {
         }
     }
 }
-

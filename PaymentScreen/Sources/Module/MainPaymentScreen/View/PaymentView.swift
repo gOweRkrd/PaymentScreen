@@ -1,75 +1,77 @@
 import UIKit
 
 final class PaymentView: UIView {
-    
-    private let spacing:CGFloat = 16.0
-    
+
+    private let spacing: CGFloat = 16.0
+
     // MARK: - UI Elements
- 
+
     let collectionView: UICollectionView = {
 
        let layout = UICollectionViewFlowLayout()
-       layout.scrollDirection = .vertical
        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
        return collectionView
    }()
-    
+
     lazy var mainTitleLabel: UILabel = {
-        
+
         let label = UILabel()
         label.text = "Приложение платное"
         label.font = Fonts.SFProDisplay.black.font(size: 26)
         return label
     }()
-    
+
     lazy var subTitleLabel: UILabel = {
-        
+
         let label = UILabel()
         label.text = "Выберите удобный для вас способ \n оплаты"
         label.textAlignment = .center
         label.numberOfLines = 2
-        label.textColor = UIColor.lightGray
-        label.font = .systemFont(ofSize: 18, weight: .regular)
+        label.textColor = UIColor(red: 109 / 255, green: 120 / 255, blue: 133 / 255, alpha: 1)
+        label.font = Fonts.SFProDisplay.regular.font(size: 18)
         return label
     }()
-    
+
     lazy var subscribeButton: LoaderButton = {
-        
+
         let button = LoaderButton()
         button.setTitle("Оформить подписку", for: .normal)
         button.backgroundColor = .black
+        button.titleLabel?.font = Fonts.SFProDisplay.semibold.font(size: 16)
         button.layer.masksToBounds = true
+        button.setTitleColor(UIColor.white, for: .normal)
         button.layer.cornerRadius = 25
         return button
     }()
-    
+
     lazy var byButton: UIButton = {
-        
+
         let button = UIButton()
         button.setTitle("Восстановить покупки", for: .normal)
-        button.setTitleColor(UIColor.gray, for: .normal)
+        button.setTitleColor(UIColor(red: 153 / 255, green: 162 / 255, blue: 173 / 255, alpha: 1), for: .normal)
+        button.titleLabel?.font = Fonts.SFProDisplay.semibold.font(size: 16)
         return button
     }()
-    
+
     // MARK: - Lifecycle
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.backgroundColor = .white
-        
+
         addSubView()
         setupConstraints()
         setupSpacingCollectionView()
- 
+
         collectionView.register(PaymentCollectionViewCell.self, forCellWithReuseIdentifier: "cell")
     }
-    
+
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
-    
+
     // MARK: - Private Methods
-    
+
     private func setupSpacingCollectionView() {
         let layout = UICollectionViewFlowLayout()
         layout.sectionInset = UIEdgeInsets(top: spacing, left: spacing, bottom: spacing, right: spacing)
@@ -80,57 +82,50 @@ final class PaymentView: UIView {
 
 // MARK: - Setup Constrains
 
-extension PaymentView {
-    
+ private extension PaymentView {
+
     func addSubView() {
-        addSubview(mainTitleLabel)
-        addSubview(subTitleLabel)
-        addSubview(collectionView)
-        addSubview(subscribeButton)
-        addSubview(byButton)
-        
-        mainTitleLabel.translatesAutoresizingMaskIntoConstraints = false
-        subTitleLabel.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
-        subscribeButton.translatesAutoresizingMaskIntoConstraints = false
-        byButton.translatesAutoresizingMaskIntoConstraints = false
+        self.addSubviews([mainTitleLabel, subTitleLabel, collectionView, subscribeButton, byButton ])
     }
-    
+
     func setupConstraints() {
-        
+
         NSLayoutConstraint.activate([
-            
-            mainTitleLabel.topAnchor.constraint(equalTo: self.topAnchor, constant:76),
+
+            mainTitleLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: .mainTitleLabelTopAnchor),
             mainTitleLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            
-            subTitleLabel.topAnchor.constraint(equalTo: mainTitleLabel.bottomAnchor, constant:16),
-            subTitleLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant:40),
-            subTitleLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant:-40),
-            
-            collectionView.topAnchor.constraint(equalTo: subTitleLabel.bottomAnchor, constant:48),
+
+            subTitleLabel.topAnchor.constraint(equalTo: mainTitleLabel.bottomAnchor, constant: .AnchorSizeView),
+            subTitleLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: .subTitleLabelAnchor),
+            subTitleLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -.subTitleLabelAnchor),
+
+            collectionView.topAnchor.constraint(equalTo: subTitleLabel.bottomAnchor, constant: .collectionViewTopAnchor),
             collectionView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
             collectionView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-            collectionView.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.45),
-            
-            subscribeButton.topAnchor.constraint(equalTo: collectionView.bottomAnchor, constant:98),
-            subscribeButton.leadingAnchor.constraint(equalTo: self.leadingAnchor,constant: 16),
-            subscribeButton.trailingAnchor.constraint(equalTo: self.trailingAnchor,constant: -16),
-            subscribeButton.heightAnchor.constraint(equalToConstant: 50),
-            
-            byButton.topAnchor.constraint(equalTo: subscribeButton.bottomAnchor, constant:25),
+            collectionView.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: .collectionViewHeightAnchor),
+
+            subscribeButton.topAnchor.constraint(equalTo: collectionView.bottomAnchor, constant: .subscribeButtonBottomAnchor),
+            subscribeButton.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: .AnchorSizeView),
+            subscribeButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -.AnchorSizeView),
+            subscribeButton.heightAnchor.constraint(equalToConstant: .subscribeButtonHeightAnchor),
+
+            byButton.topAnchor.constraint(equalTo: subscribeButton.bottomAnchor, constant: .byButtonTopAnchor),
             byButton.centerXAnchor.constraint(equalTo: self.centerXAnchor)
-  
+
         ])
     }
 }
 
-
 // MARK: - Constant Constraints
 
-private extension CGFloat {
-    
-    static let imageViewAnchor: CGFloat = 30
-    static let topAnchor: CGFloat = 10
-    static let trailingMargin: CGFloat = -10
-}
+ private extension CGFloat {
 
+    static let mainTitleLabelTopAnchor: CGFloat = 76
+    static let AnchorSizeView: CGFloat = 16
+    static let subTitleLabelAnchor: CGFloat = 40
+    static let collectionViewTopAnchor: CGFloat = 48
+    static let collectionViewHeightAnchor: CGFloat = 0.45
+    static let subscribeButtonBottomAnchor: CGFloat = 98
+    static let subscribeButtonHeightAnchor: CGFloat = 50
+    static let byButtonTopAnchor: CGFloat = 25
+}

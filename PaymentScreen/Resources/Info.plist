@@ -6,6 +6,9 @@
 	<array>
 		<string>SFProDisplay-Bold.ttf</string>
 		<string>SFProDisplayRegular.ttf</string>
+		<string>SF-Pro-Display-Black</string>
+		<string>SF-Pro-Display-Heavy</string>
+		<string>SF-Pro-Display-Semibold</string>
 	</array>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
