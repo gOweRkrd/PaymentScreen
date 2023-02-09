@@ -27,6 +27,7 @@ final class PaymentCollectionViewCell: UICollectionViewCell {
         
         let label = UILabel()
         label.font = Fonts.SFProDisplay.bold.font(size: 20)
+        label.textColor = .black
         return label
     }()
     
@@ -35,6 +36,7 @@ final class PaymentCollectionViewCell: UICollectionViewCell {
         let label = UILabel()
         label.text = "1990 руб."
         label.font = Fonts.SFProDisplay.heavy.font(size: 24)
+        label.textColor = .black
         return label
     }()
     

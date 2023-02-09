@@ -10,6 +10,7 @@ final class PaymentView: UIView {
         
         let layout = UICollectionViewFlowLayout()
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.backgroundColor = .white
         return collectionView
     }()
     
@@ -18,6 +19,7 @@ final class PaymentView: UIView {
         let label = UILabel()
         label.text = "Приложение платное"
         label.font = Fonts.SFProDisplay.black.font(size: 26)
+        label.textColor = .black
         return label
     }()
     
@@ -57,12 +59,11 @@ final class PaymentView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.backgroundColor = .white
-        
+      
         addSubView()
         setupConstraints()
         setupSpacingCollectionView()
-        backgroundColor = .systemBackground
+        backgroundColor = .white
         
         collectionView.register(PaymentCollectionViewCell.self, forCellWithReuseIdentifier: "cell")
     }
