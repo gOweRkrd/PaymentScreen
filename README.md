@@ -10,7 +10,7 @@ Stack: UIKit,UIColletionView,Custom Font,UIActivityIndicator,MVC
 
 Helpers: SwiftLint,SwiftGen
 
-Visual mode: dark/light
+Visual mode: dark/ light
 
 ### Demonstration of the operation of screen and the operation of the application:
 
