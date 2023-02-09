@@ -10,8 +10,6 @@ final class PaymentView: UIView {
         
         let layout = UICollectionViewFlowLayout()
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.showsVerticalScrollIndicator = false
-        collectionView.isScrollEnabled = false
         return collectionView
     }()
     
@@ -64,6 +62,7 @@ final class PaymentView: UIView {
         addSubView()
         setupConstraints()
         setupSpacingCollectionView()
+        backgroundColor = .systemBackground
         
         collectionView.register(PaymentCollectionViewCell.self, forCellWithReuseIdentifier: "cell")
     }
@@ -106,13 +105,13 @@ private extension PaymentView {
             collectionView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
             collectionView.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: .collectionViewHeightAnchor),
             
-            subscribeButton.topAnchor.constraint(equalTo: collectionView.bottomAnchor, constant: .subscribeButtonBottomAnchor),
             subscribeButton.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: .AnchorSizeView),
             subscribeButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -.AnchorSizeView),
             subscribeButton.heightAnchor.constraint(equalToConstant: .subscribeButtonHeightAnchor),
+            subscribeButton.bottomAnchor.constraint(equalTo: byButton.topAnchor, constant: -.subscribeButtonBottomAnchor),
             
-            byButton.topAnchor.constraint(equalTo: subscribeButton.bottomAnchor, constant: .byButtonTopAnchor),
-            byButton.centerXAnchor.constraint(equalTo: self.centerXAnchor)
+            byButton.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            byButton.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: .byButtonTopAnchor)
             
         ])
     }
@@ -122,12 +121,12 @@ private extension PaymentView {
 
 private extension CGFloat {
     
-    static let mainTitleLabelTopAnchor: CGFloat = 76
+    static let mainTitleLabelTopAnchor: CGFloat = 60
     static let AnchorSizeView: CGFloat = 16
     static let subTitleLabelAnchor: CGFloat = 40
-    static let collectionViewTopAnchor: CGFloat = 48
-    static let collectionViewHeightAnchor: CGFloat = 0.45
-    static let subscribeButtonBottomAnchor: CGFloat = 98
+    static let collectionViewTopAnchor: CGFloat = 18
+    static let collectionViewHeightAnchor: CGFloat = 0.55
+    static let subscribeButtonBottomAnchor: CGFloat = 15
     static let subscribeButtonHeightAnchor: CGFloat = 50
-    static let byButtonTopAnchor: CGFloat = 25
+    static let byButtonTopAnchor: CGFloat = -20
 }
